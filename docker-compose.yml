@@ -11,10 +11,18 @@ services:
       NB_GID: 100
       GRANT_SUDO: "yes"
     volumes:
-       - "./work:/home/jovyan/work"
-       - "./Project.toml:/home/jovyan/Project.toml"
+       - "./jupyter/work:/home/jovyan/work"
+       - "./jupyter/Project.toml:/home/jovyan/Project.toml"
     privileged: true
     ports:
       - "8888:8888"
     restart: unless-stopped
     command: start.sh jupyter lab --NotebookApp.token=''
+  postgres:
+    env_file:
+      - .env
+    image: postgres:10-alpine
+    volumes:
+      - ./postgresql/data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
