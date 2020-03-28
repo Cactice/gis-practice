@@ -19,9 +19,10 @@ services:
     restart: unless-stopped
     command: start.sh jupyter lab --NotebookApp.token=''
   postgres:
+    container_name: postgres_container
     env_file:
       - .env
-    image: postgres:10-alpine
+    image: mdillon/postgis
     volumes:
       - ./postgresql/data:/var/lib/postgresql/data
     ports:
